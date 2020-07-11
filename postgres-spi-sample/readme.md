@@ -2,12 +2,17 @@
 
 ## prerequire
 
+linux
 > sudo apt-get install postgresql
 > sudo apt-get install postgresql-common
 > sudo apt install postgresql-server-dev-all
 > sudo apt install postgresql-server-dev-10
 > sudo apt-get install libpq-dev
 > sudo apt-get install libc6
+
+osx
+> brew install postgresql@11
+
 
 ## add postgresql repos
 
