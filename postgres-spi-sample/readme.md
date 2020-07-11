@@ -10,6 +10,11 @@ linux
 > sudo apt-get install libpq-dev
 > sudo apt-get install libc6
 
+
+> sudo apt-get install mecab
+> sudo apt install libmecab-dev
+> 
+
 osx
 > brew install postgresql@11
 
