@@ -32,3 +32,6 @@ all: sample.c funcs.c
         -I ${POSTGRES_INCLUDE_OPTS} \
         `mecab-config --libs`
 	gcc ${SHARED_OPTS} -o bin/mecab_simple.so bin/mecab_simple.o
+
+test:
+	cp bin/*.so docker/shared_lib

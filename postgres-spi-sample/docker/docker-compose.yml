@@ -1,0 +1,16 @@
+version: '3'
+services:
+# Postgres server
+  sample_database:
+    container_name: postgres-mecab
+    image: postgres-mecab:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - ./shared_lib/sample.so:/usr/local/lib/postgresql/sample.so
+      - ./shared_lib/funcs.so:/usr/local/lib/postgresql/funcs.so
+      - ./shared_lib/mecab_simple.so:/usr/local/lib/postgresql/mecab_simple.so
