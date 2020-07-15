@@ -34,6 +34,10 @@ osx
 
 > make
 
+> sudo make install
+
+
+
 [Comile and Link](https://www.postgresql.jp/document/11/html/xfunc-c.html#DFUNC)
 
 copy so file to the folder which is indicated by the below command
