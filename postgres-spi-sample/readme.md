@@ -80,3 +80,7 @@ CREATE FUNCTION concat_text(text, text) RETURNS text
      LANGUAGE C STRICT;
 
 ```
+
+## docker
+
+> docker build -t postgres-mecab .
