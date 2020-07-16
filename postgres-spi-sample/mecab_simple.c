@@ -4,9 +4,8 @@
 #include <string.h>
 #include "fmgr.h"
 #include "utils/geo_decls.h"
-#include <locale.h>
 
-
+int fileWrite(char *path, const char *content );
 
 #define CHECK(eval) if (! eval) { \
     fprintf (stderr, "Exception:%s\n", mecab_strerror (mecab)); \
@@ -22,17 +21,15 @@ PG_FUNCTION_INFO_V1(mecab);
 Datum
 mecab(PG_FUNCTION_ARGS)
 {
-    setlocale(LC_CTYPE, "C.UTF-8");
+    text     *t = PG_GETARG_TEXT_PP(0); // input value
+    text     *destination; // for return value
 
-    text     *t = PG_GETARG_TEXT_PP(0);
     char *input=t->vl_dat;
+    int size; // return value size
 
     // mecab
     mecab_t *mecab;
-    const mecab_node_t *node;
     const char *result;
-    int i;
-    size_t len;
 
     // Create tagger object
     mecab = mecab_new(1, &input);
@@ -42,27 +39,28 @@ mecab(PG_FUNCTION_ARGS)
     result = mecab_sparse_tostr(mecab, input);
     CHECK(result)
 
-    /*
+    fileWrite("/tmp/mecab_simple.txt", result); //for debug
 
-     * VARSIZEは、そのヘッダのVARHDRSZまたはVARHDRSZ_SHORTを引いた
-     * 構造体の総長をバイト数で表したものです。
-     * 完全な長さのヘッダと合わせたコピーを作成します。
-     */
+    size = strlen(result);
 
-    // for  debug
-    FILE *outputfile;         // 出力ストリーム
-
-    int size = strlen(result);
-    outputfile = fopen("/tmp/d.txt", "w");
-    fprintf(outputfile, "%d\n%s\n",VARHDRSZ + size, result); // ファイルに書く
-    fclose(outputfile);          // ファイルをクローズ(閉じる)
-
-    text *destination = (text *) palloc(VARHDRSZ + size);
+    destination = (text *) palloc(VARHDRSZ + size);
     SET_VARSIZE(destination, VARHDRSZ + size);
     memcpy(destination->vl_dat, result, size);
-    // for  debug
 
     mecab_destroy(mecab);
 
     PG_RETURN_TEXT_P(destination);
+}
+
+int fileWrite(char *path, const char *content ) {
+  FILE *outputfile;
+
+  outputfile = fopen(path, "w");
+  if (outputfile == NULL) {
+    return 0; //nothing to do if fail
+  }
+  fprintf(outputfile, "%s", content);
+
+  fclose(outputfile);
+  return 0;
 }
