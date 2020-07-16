@@ -4,6 +4,9 @@
 #include <string.h>
 #include "fmgr.h"
 #include "utils/geo_decls.h"
+#include <locale.h>
+
+
 
 #define CHECK(eval) if (! eval) { \
     fprintf (stderr, "Exception:%s\n", mecab_strerror (mecab)); \
@@ -19,6 +22,8 @@ PG_FUNCTION_INFO_V1(mecab);
 Datum
 mecab(PG_FUNCTION_ARGS)
 {
+    setlocale(LC_CTYPE, "C.UTF-8");
+
     text     *t = PG_GETARG_TEXT_PP(0);
     char *input=t->vl_dat;
 
@@ -43,9 +48,19 @@ mecab(PG_FUNCTION_ARGS)
      * 構造体の総長をバイト数で表したものです。
      * 完全な長さのヘッダと合わせたコピーを作成します。
      */
-    text *destination = (text *) palloc(VARHDRSZ + strlen(result));
-    SET_VARSIZE(destination, VARHDRSZ + strlen(result));
-    memcpy(destination, result, strlen(result));
+
+    // for  debug
+    FILE *outputfile;         // 出力ストリーム
+
+    int size = strlen(result);
+    outputfile = fopen("/tmp/d.txt", "w");
+    fprintf(outputfile, "%d\n%s\n",VARHDRSZ + size, result); // ファイルに書く
+    fclose(outputfile);          // ファイルをクローズ(閉じる)
+
+    text *destination = (text *) palloc(VARHDRSZ + size);
+    SET_VARSIZE(destination, VARHDRSZ + size);
+    memcpy(destination->vl_dat, result, size);
+    // for  debug
 
     mecab_destroy(mecab);
 
