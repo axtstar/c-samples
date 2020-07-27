@@ -16,7 +16,7 @@ include $(PGXS)
 override PG_CXXFLAGS += -std=c++11 -O3
 
 SHARED_OPTS=-shared
-POSTGRES_INCLUDE_OPTS=/usr/include/postgresql/11/server
+POSTGRES_INCLUDE_OPTS=/usr/include/postgresql/12/server
 MEMCAB_INCLUDE_OPTS=/usr/include
 
 # XXX: PostgreSQL below 11 does not automatically add -fPIC or equivalent to C++
