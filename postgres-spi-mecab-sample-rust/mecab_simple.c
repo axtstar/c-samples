@@ -5,7 +5,7 @@
 #include "fmgr.h"
 #include "utils/geo_decls.h"
 
-int fileWrite(char *path, const char *content );
+int fileWrite(const char *path, const char *content );
 
 #define CHECK(eval) if (! eval) { \
     fprintf (stderr, "Exception:%s\n", mecab_strerror (mecab)); \
@@ -52,7 +52,7 @@ mecab(PG_FUNCTION_ARGS)
     PG_RETURN_TEXT_P(destination);
 }
 
-int fileWrite(char *path, const char *content ) {
+int fileWrite(const char *path, const char *content ) {
   FILE *outputfile;
 
   outputfile = fopen(path, "w");

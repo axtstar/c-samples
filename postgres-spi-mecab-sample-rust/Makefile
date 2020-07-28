@@ -1,10 +1,10 @@
-MODULE_big = mecab_simple
-OBJS = mecab_simple.o
+MODULE_big = sample
+OBJS = mecab_simple.o execq.o
 PGFILEDESC = "mecab_simple - mecab simple test"
 
 SHLIB_LINK = -lmecab
 
-EXTENSION = mecab_simple
+EXTENSION = mecab_simple execq
 DATA = mecab_simple--0.1.sql
 
 PG_CONFIG = pg_config
@@ -27,5 +27,5 @@ endif
 
 COMPILE.cxx.bc = $(CLANG) -xc++ -Wno-ignored-attributes $(BITCODE_CXXFLAGS) $(CPPFLAGS) -emit-llvm -c
 
-%.bc : %.cpp
+%.bc : %.c
 	$(COMPILE.cxx.bc) $(CXXFLAGS) $(CPPFLAGS)  -o $@ $<
