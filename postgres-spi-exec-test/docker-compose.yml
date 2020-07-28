@@ -2,8 +2,8 @@ version: '3'
 services:
 # Postgres server
   sample_database:
-    container_name: postgres-mecab
-    image: postgres-mecab:latest
+    container_name: postgres-execq
+    image: postgres-execq:latest
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
