@@ -38,14 +38,18 @@ Datum mecab(PG_FUNCTION_ARGS)
     const char *result;
 
     // Create tagger object
-    mecab = mecab_new(1, &input);
+    const char* mecab_args = "-a";
+    // available command line argument
+    // http://www.mwsoft.jp/programming/munou/mecab_command.html#output-format-type
+    mecab = mecab_new2(mecab_args);
+    //mecab = mecab_new(1, &input);
     CHECK(mecab);
 
     // Gets tagged result in string.
     result = mecab_sparse_tostr(mecab, input);
     CHECK(result)
 
-    fileWrite("/tmp/mecab_simple.txt", result); //for debug
+    //fileWrite("/tmp/mecab_simple.txt", result); //for debug
 
     size = strlen(result);
 
@@ -71,10 +75,8 @@ Datum mecab_dic_info(PG_FUNCTION_ARGS)
 {
   // それぞれの実引数は、引数のデータ型に合ったPG_GETARG_xxx()マクロを使用して取り出す。
   // 厳格でない関数では、PG_ARGNULL_xxx()を使って引数がNULLかどうか事前に確認することが必要
-    text     *t = PG_GETARG_TEXT_PP(0); // input value
     text     *destination; // for return value
 
-    char *input=t->vl_dat;
     int size; // return value size
 
     // mecab
@@ -82,7 +84,10 @@ Datum mecab_dic_info(PG_FUNCTION_ARGS)
     const mecab_dictionary_info_t *result;
 
     // Create tagger object
-    mecab = mecab_new(1, &input);
+    const char* mecab_args = "-Oyomi";
+    mecab = mecab_new2(mecab_args);
+    //mecab_new2
+
     CHECK(mecab);
 
     // Gets tagged result in string.
