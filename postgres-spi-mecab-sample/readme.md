@@ -34,3 +34,16 @@ result:
 
 (1 row)
 ```
+
+```
+CREATE FUNCTION mecab(text) RETURNS text
+     AS 'mecab_simple', 'mecab'
+     LANGUAGE C STRICT;
+```
+
+dictionary info
+```
+CREATE FUNCTION mecab_dic_info(text) RETURNS text
+     AS 'mecab_simple', 'mecab_dic_info'
+     LANGUAGE C STRICT
+```
