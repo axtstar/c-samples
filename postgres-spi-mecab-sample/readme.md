@@ -41,9 +41,35 @@ CREATE FUNCTION mecab(text) RETURNS text
      LANGUAGE C STRICT;
 ```
 
+with args(use mecab_new2)
+```
+CREATE FUNCTION mecab_args(text, text) RETURNS text
+     AS 'mecab_simple', 'mecab_args'
+     LANGUAGE C STRICT;
+```
+> select mecab('すもももももももものうち');
+
+nbest
+```
+CREATE FUNCTION mecab_nbest(text,integer) RETURNS text
+     AS 'mecab_simple', 'mecab_nbest'
+     LANGUAGE C STRICT;
+```
+> select mecab_nbest('すもももももももものうち', 3);
+
 dictionary info
 ```
 CREATE FUNCTION mecab_dic_info(text) RETURNS text
      AS 'mecab_simple', 'mecab_dic_info'
      LANGUAGE C STRICT;
 ```
+> select mecab_dic_info();
+
+mecab version
+```
+CREATE FUNCTION mecab_version_info() RETURNS text
+     AS 'mecab_simple', 'mecab_version_info'
+     LANGUAGE C STRICT;
+```
+
+> select mecab_version_info();
