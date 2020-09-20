@@ -45,5 +45,5 @@ dictionary info
 ```
 CREATE FUNCTION mecab_dic_info(text) RETURNS text
      AS 'mecab_simple', 'mecab_dic_info'
-     LANGUAGE C STRICT
+     LANGUAGE C STRICT;
 ```

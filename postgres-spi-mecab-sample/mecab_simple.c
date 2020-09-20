@@ -38,11 +38,16 @@ Datum mecab(PG_FUNCTION_ARGS)
     const char *result;
 
     // Create tagger object
-    const char* mecab_args = "-a";
-    // available command line argument
+    // available command line argument?
+    // https://taku910.github.io/mecab/format.html
     // http://www.mwsoft.jp/programming/munou/mecab_command.html#output-format-type
-    mecab = mecab_new2(mecab_args);
-    //mecab = mecab_new(1, &input);
+
+    // mecab_new2
+    // const char* mecab_args = "-Oyomi";
+    // mecab = mecab_new2(mecab_args);
+
+    // mecab_new
+    mecab = mecab_new(1, &input);
     CHECK(mecab);
 
     // Gets tagged result in string.
