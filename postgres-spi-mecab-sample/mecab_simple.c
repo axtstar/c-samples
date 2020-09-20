@@ -20,6 +20,7 @@ PG_MODULE_MAGIC;
 /* 可変長の参照渡し */
 PG_FUNCTION_INFO_V1(mecab);
 PG_FUNCTION_INFO_V1(mecab_dic_info);
+PG_FUNCTION_INFO_V1(mecab_version_info);
 
 
 //37.10.3 Version 1 呼び出し規約を利用
@@ -118,6 +119,35 @@ Datum mecab_dic_info(PG_FUNCTION_ARGS)
     PG_RETURN_TEXT_P(destination);
 }
 
+//37.10.3 Version 1 呼び出し規約を利用
+Datum mecab_version_info(PG_FUNCTION_ARGS)
+{
+  // それぞれの実引数は、引数のデータ型に合ったPG_GETARG_xxx()マクロを使用して取り出す。
+  // 厳格でない関数では、PG_ARGNULL_xxx()を使って引数がNULLかどうか事前に確認することが必要
+    text     *destination; // for return value
+
+    int size; // return value size
+
+    const char *result;
+
+    // Gets tagged result in string.
+    result = mecab_version();
+
+    size = strlen(result);
+
+    // メモリアロケーションはpalloc/palloc0を利用すること
+    destination = (text *) palloc0(VARHDRSZ + size);
+    // 長さ確保マクロ
+    SET_VARSIZE(destination, VARHDRSZ + size);
+    // https://www.postgresql.jp/document/12/html/xfunc-c.html
+    // `char data[FLEXIBLE_ARRAY_MEMBER]`
+    // ↑とあるが、vl_datの誤り？
+    // see https://github.com/postgres/postgres/blob/de8feb1f3a23465b5737e8a8c160e8ca62f61339/src/include/c.h#L565
+    memcpy(destination->vl_dat, result, size);
+
+    // 返却値用マクロ
+    PG_RETURN_TEXT_P(destination);
+}
 
 int fileWrite(const char *path, const char *content ) {
   FILE *outputfile;
