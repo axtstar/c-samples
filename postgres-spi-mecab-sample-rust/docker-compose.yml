@@ -1,9 +1,9 @@
 version: '3'
 services:
 # Postgres server
-  sample_database:
+  postgres-mecab :
+    build: .
     container_name: postgres-mecab
-    image: postgres-mecab:latest
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres

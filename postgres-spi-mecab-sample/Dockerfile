@@ -1,4 +1,4 @@
-FROM postgres:latest
+FROM postgres:12
 
 RUN apt-get update
 
