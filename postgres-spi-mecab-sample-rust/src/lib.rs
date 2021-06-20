@@ -1,12 +1,10 @@
-extern crate libc;
-use libc::size_t;
+#![allow(non_upper_case_globals)]
+#![allow(non_camel_case_types)]
+#![allow(non_snake_case)]
 
-#[link(name = "snappy")]
-extern {
-    fn snappy_max_compressed_length(source_length: size_t) -> size_t;
-}
+include!("bindings.rs");
 
-fn main() {
-    let x = unsafe { snappy_max_compressed_length(100) };
-    println!("max compressed length of a 100 byte buffer: {}", x);
+pub unsafe extern "C" fn mecab(functionCallInfo:FunctionCallInfo) -> Datum {
+    
+
 }

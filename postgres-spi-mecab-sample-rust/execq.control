@@ -1,5 +1,0 @@
-# execq test
-comment = 'execq'
-default_version = '0.1'
-module_pathname = $libdir/execq'
-relocatable = true

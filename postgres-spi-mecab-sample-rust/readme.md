@@ -93,3 +93,12 @@ CREATE FUNCTION concat_text(text, text) RETURNS text
      LANGUAGE C STRICT;
 
 > postgres=# select mecab('すもももももももものうち');
+
+## rust
+
+> cargo bindgen
+
+> bindgen -o src/bindings.rs ./src/wrapper.h -- -I /usr/include/ 
+
+↓いらなさそう↓
+> -xc++ -Wno-ignored-attributes -emit-llvm -c
