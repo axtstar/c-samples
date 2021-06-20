@@ -1,11 +1,13 @@
 version: '3'
 services:
 # Postgres server
-  sample_database:
-    container_name: postgres-execq
-    image: postgres-execq:latest
-    environment:
+postgres-mecab:
+  build: .
+  container_name: postgres-mecab
+  environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-    ports:
+      volumes:
+        - ./mecabrc:/etc/mecabrc
+      ports:
       - "5432:5432"

@@ -1,11 +1,13 @@
 version: '3'
 services:
 # Postgres server
-  postgres-mecab :
+  postgres-mecab:
     build: .
     container_name: postgres-mecab
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./mecabrc:/etc/mecabrc
     ports:
-      - "5432:5432"
+    - "5432:5432"

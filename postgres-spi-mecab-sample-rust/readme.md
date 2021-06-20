@@ -83,4 +83,13 @@ CREATE FUNCTION concat_text(text, text) RETURNS text
 
 ## docker
 
-> docker build -t postgres-mecab .
+> docker-compose up -d
+
+> psql -h 127.0.0.1 -d postgres -U postgres
+(type postgres)
+
+> postgres=#   CREATE FUNCTION mecab(text) RETURNS text 
+     AS 'mecab_simple', 'mecab'
+     LANGUAGE C STRICT;
+
+> postgres=# select mecab('すもももももももものうち');
