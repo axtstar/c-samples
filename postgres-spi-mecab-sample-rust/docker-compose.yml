@@ -10,5 +10,7 @@ services:
     volumes:
       - ./:/work
       - ./mecabrc:/etc/mecabrc
+    command: >
+      tail -F /dev/null
     ports:
     - "5432:5432"

@@ -2,4 +2,4 @@
 comment = 'mecab simple test'
 default_version = '0.1'
 module_pathname = $libdir/mecab_simple'
-relocatable = true
+relocatable = false
