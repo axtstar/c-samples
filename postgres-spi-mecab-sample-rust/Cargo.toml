@@ -6,5 +6,12 @@ edition = "2018"
 [lib]
 crate-type = ["rlib", "cdylib"]
 
+[features]
+default = ["pg11"]
+pg11 = ["pgx/pg11" ]
+pg12 = ["pgx/pg12" ]
+pg13 = ["pgx/pg13" ]
+pg_test = []
+
 [dependencies]
 libc = "0.2"

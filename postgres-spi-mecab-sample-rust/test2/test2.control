@@ -1,0 +1,5 @@
+comment = 'test2:  Created by pgx'
+default_version = '1.0'
+module_pathname = '$libdir/test2'
+relocatable = false
+superuser = false

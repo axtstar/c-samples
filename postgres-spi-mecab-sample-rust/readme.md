@@ -102,3 +102,10 @@ CREATE FUNCTION concat_text(text, text) RETURNS text
 
 ↓いらなさそう↓
 > -xc++ -Wno-ignored-attributes -emit-llvm -c
+
+## psql
+
+> cargo pgx connect pg11 postgres
+
+
+> cargo pgx 
